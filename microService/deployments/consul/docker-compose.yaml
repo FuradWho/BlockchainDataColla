@@ -1,0 +1,53 @@
+version: '2'
+networks:
+  colla-consul:
+
+services:
+  consul1:
+    image: consul
+    container_name: colla.consul.server1
+    command: agent -server -bootstrap-expect=3 -node=colla.consul.server1 -bind=0.0.0.0 -client=0.0.0.0 -datacenter=dc1
+    networks:
+      - colla-consul
+
+  consul2:
+    image: consul
+    container_name: colla.consul.server2
+    command: agent -server -retry-join=colla.consul.server1 -node=colla.consul.server2 -bind=0.0.0.0 -client=0.0.0.0 -datacenter=dc1
+    depends_on:
+      - consul1
+    networks:
+      - colla-consul
+
+  consul3:
+    image: consul
+    container_name: colla.consul.server3
+    command: agent -server -retry-join=colla.consul.server1 -node=colla.consul.server3 -bind=0.0.0.0 -client=0.0.0.0 -datacenter=dc1
+    depends_on:
+      - consul1
+    networks:
+      - colla-consul
+
+  consul4:
+    image: consul
+    container_name: colla.consul.client4
+    command: agent -retry-join=colla.consul.server1 -node=colla.consul.client4 -bind=0.0.0.0 -client=0.0.0.0 -datacenter=dc1 -ui
+    ports:
+      - "8500:8500"
+    depends_on:
+      - consul2
+      - consul3
+    networks:
+      - colla-consul
+
+  consul5:
+    image: consul
+    container_name: colla.consul.client5
+    command: agent -retry-join=colla.consul.server1 -node=colla.consul.client5 -bind=0.0.0.0 -client=0.0.0.0 -datacenter=dc1 -ui
+    ports:
+      - "8501:8500"
+    depends_on:
+      - consul2
+      - consul3
+    networks:
+      - colla-consul
