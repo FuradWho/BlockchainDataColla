@@ -1,0 +1,22 @@
+// 这个就是protobuf的中间文件
+
+// 指定的当前proto语法的版本，有2和3
+syntax = "proto3";
+option go_package = "/proto";
+// 指定等会文件生成出来的package
+package proto;
+
+// 定义request model
+message Request{
+}
+
+message Response{
+  string Errno = 1;
+  string Errmsg = 2;
+}
+
+// 定义服务主体
+service TestService{
+  // 定义方法
+  rpc GetTest(Request) returns (Response){}
+}
