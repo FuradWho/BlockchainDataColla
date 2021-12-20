@@ -1,0 +1,11 @@
+version: '2'
+networks:
+  colla-nats:
+
+services:
+  nats-server:
+    image: nats:latest
+    volumes:
+      - ./nats-server.conf:/nats-server.conf
+    ports:
+      - "4222:4222"
