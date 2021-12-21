@@ -1,0 +1,25 @@
+// 指定的当前proto语法的版本，有2和3
+syntax = "proto3";
+option go_package = ".";
+// 指定等会文件生成出来的package
+package crs;
+
+// 定义request model
+message CsrRequest{
+  string cn = 1;
+  bytes csr = 2;
+}
+
+message CsrResponse{
+  string code = 1;
+  string msg = 2;
+  string file_name = 3;
+  int32 file_size = 4;
+  bytes crt = 5;
+}
+
+// 定义服务主体
+service CrsService{
+  // 定义方法
+  rpc SendCsr (CsrRequest) returns (CsrResponse){}
+}
