@@ -6,7 +6,7 @@
 // versions:
 // 	protoc-gen-go v1.27.1
 // 	protoc        v3.19.1
-// source: Test.proto
+// source: fabric_test.proto
 
 // 指定等会文件生成出来的package
 

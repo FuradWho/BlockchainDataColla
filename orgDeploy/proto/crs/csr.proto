@@ -18,8 +18,20 @@ message CsrResponse{
   bytes crt = 5;
 }
 
+message CaRequest {
+}
+
+message CaResponse{
+  string code = 1;
+  string msg = 2;
+  string file_name = 3;
+  int32 file_size = 4;
+  bytes ca_crt = 5;
+}
+
 // 定义服务主体
 service CrsService{
   // 定义方法
   rpc SendCsr (CsrRequest) returns (CsrResponse){}
+  rpc GetCaCrt (CaRequest) returns (CaResponse){}
 }

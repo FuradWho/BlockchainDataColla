@@ -7,6 +7,8 @@ require (
 	github.com/asim/go-micro/plugins/registry/consul/v3 v3.7.0
 	github.com/asim/go-micro/plugins/server/grpc/v3 v3.7.0
 	github.com/asim/go-micro/v3 v3.7.0
+	github.com/lestrrat-go/file-rotatelogs v2.4.0+incompatible
+	github.com/sirupsen/logrus v1.7.0
 	google.golang.org/protobuf v1.27.1
 )
 
@@ -36,6 +38,7 @@ require (
 	github.com/imdario/mergo v0.3.12 // indirect
 	github.com/jbenet/go-context v0.0.0-20150711004518-d14ea06fba99 // indirect
 	github.com/kevinburke/ssh_config v0.0.0-20201106050909-4977a11b4351 // indirect
+	github.com/lestrrat-go/strftime v1.0.5 // indirect
 	github.com/mattn/go-colorable v0.1.8 // indirect
 	github.com/mattn/go-isatty v0.0.12 // indirect
 	github.com/miekg/dns v1.1.43 // indirect

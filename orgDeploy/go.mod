@@ -3,9 +3,11 @@ module github.com/FuradWho/BlockchainDataColla/orgDeploy
 go 1.17
 
 require (
-	github.com/asim/go-micro/plugins/client/grpc/v3 v3.0.0-20210630062103-c13bb07171bc
+	github.com/asim/go-micro/plugins/client/grpc/v3 v3.7.0
 	github.com/asim/go-micro/plugins/registry/consul/v3 v3.7.0
 	github.com/asim/go-micro/v3 v3.7.0
+	github.com/lestrrat-go/file-rotatelogs v2.4.0+incompatible
+	github.com/sirupsen/logrus v1.7.0
 	google.golang.org/protobuf v1.27.1
 )
 
@@ -14,7 +16,6 @@ require (
 	github.com/ProtonMail/go-crypto v0.0.0-20210428141323-04723f9f07d7 // indirect
 	github.com/acomagu/bufpipe v1.0.3 // indirect
 	github.com/armon/go-metrics v0.0.0-20180917152333-f0300d1749da // indirect
-	github.com/asim/go-micro/plugins/registry/memory/v3 v3.0.0-20210630062103-c13bb07171bc // indirect
 	github.com/bitly/go-simplejson v0.5.0 // indirect
 	github.com/cpuguy83/go-md2man/v2 v2.0.0 // indirect
 	github.com/emirpasic/gods v1.12.0 // indirect
@@ -36,6 +37,7 @@ require (
 	github.com/imdario/mergo v0.3.12 // indirect
 	github.com/jbenet/go-context v0.0.0-20150711004518-d14ea06fba99 // indirect
 	github.com/kevinburke/ssh_config v0.0.0-20201106050909-4977a11b4351 // indirect
+	github.com/lestrrat-go/strftime v1.0.5 // indirect
 	github.com/mattn/go-colorable v0.1.8 // indirect
 	github.com/mattn/go-isatty v0.0.12 // indirect
 	github.com/miekg/dns v1.1.43 // indirect

@@ -40,6 +40,7 @@ func NewCrsServiceEndpoints() []*api.Endpoint {
 type CrsService interface {
 	// 定义方法
 	SendCsr(ctx context.Context, in *CsrRequest, opts ...client.CallOption) (*CsrResponse, error)
+	GetCaCrt(ctx context.Context, in *CaRequest, opts ...client.CallOption) (*CaResponse, error)
 }
 
 type crsService struct {
@@ -64,16 +65,28 @@ func (c *crsService) SendCsr(ctx context.Context, in *CsrRequest, opts ...client
 	return out, nil
 }
 
+func (c *crsService) GetCaCrt(ctx context.Context, in *CaRequest, opts ...client.CallOption) (*CaResponse, error) {
+	req := c.c.NewRequest(c.name, "CrsService.GetCaCrt", in)
+	out := new(CaResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // Server API for CrsService service
 
 type CrsServiceHandler interface {
 	// 定义方法
 	SendCsr(context.Context, *CsrRequest, *CsrResponse) error
+	GetCaCrt(context.Context, *CaRequest, *CaResponse) error
 }
 
 func RegisterCrsServiceHandler(s server.Server, hdlr CrsServiceHandler, opts ...server.HandlerOption) error {
 	type crsService interface {
 		SendCsr(ctx context.Context, in *CsrRequest, out *CsrResponse) error
+		GetCaCrt(ctx context.Context, in *CaRequest, out *CaResponse) error
 	}
 	type CrsService struct {
 		crsService
@@ -88,4 +101,8 @@ type crsServiceHandler struct {
 
 func (h *crsServiceHandler) SendCsr(ctx context.Context, in *CsrRequest, out *CsrResponse) error {
 	return h.CrsServiceHandler.SendCsr(ctx, in, out)
+}
+
+func (h *crsServiceHandler) GetCaCrt(ctx context.Context, in *CaRequest, out *CaResponse) error {
+	return h.CrsServiceHandler.GetCaCrt(ctx, in, out)
 }
