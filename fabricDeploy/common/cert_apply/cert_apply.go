@@ -7,6 +7,7 @@ import (
 	"crypto/x509/pkix"
 	"encoding/pem"
 	"errors"
+	"net"
 	"os"
 )
 
@@ -82,15 +83,15 @@ func (c *Crt) CreateCSR() ([]byte, error) {
 		PublicKeyAlgorithm: x509.RSA,
 		PublicKey:          c.publicKey,
 		Subject: pkix.Name{
-			Country:            []string{"CH"},
+			Country:            []string{"CN"},
 			Province:           []string{"Beijing"},
 			Locality:           []string{"Beijing"},
 			Organization:       []string{"colla"},
 			OrganizationalUnit: []string{"fabric"},
-			CommonName:         "127.0.0.1",
+			CommonName:         "colla.fabric.com",
 		},
-		//	IPAddresses:    []net.IP{net.IPv4(127, 0, 0, 1)},
-		// DNSNames:       []string{"colla.fabric.com"},
+		IPAddresses:    []net.IP{net.IPv4(127, 0, 0, 1), net.IPv4(192, 168, 175, 143)},
+		DNSNames:       []string{"colla.fabric.com", "localhost"},
 		EmailAddresses: []string{"liu1337543811@gmail.com"},
 	}
 

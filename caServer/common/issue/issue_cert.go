@@ -88,13 +88,14 @@ func (i *IssueCert) CrsCreateCrt(crsFile []byte, cn string) (error, []byte) {
 		SerialNumber:   big.NewInt(3),
 		Issuer:         i.Cert.Subject,
 		Subject:        clientCSR.Subject,
-		EmailAddresses: []string{"liu1337543811@gmail.com"},
+		EmailAddresses: clientCSR.EmailAddresses,
 		NotBefore:      time.Now(),
 		NotAfter:       time.Now().Add(365 * 24 * time.Hour),
 		IsCA:           false,
-		//	IPAddresses:    []net.IP{net.IPv4(127, 0, 0, 1)},
-		KeyUsage:    x509.KeyUsageDigitalSignature | x509.KeyUsageDataEncipherment,
-		ExtKeyUsage: []x509.ExtKeyUsage{x509.ExtKeyUsageClientAuth, x509.ExtKeyUsageServerAuth},
+		IPAddresses:    clientCSR.IPAddresses,
+		DNSNames:       clientCSR.DNSNames,
+		KeyUsage:       x509.KeyUsageDigitalSignature | x509.KeyUsageDataEncipherment,
+		ExtKeyUsage:    []x509.ExtKeyUsage{x509.ExtKeyUsageClientAuth, x509.ExtKeyUsageServerAuth},
 	}
 
 	clientCRTRaw, err := x509.CreateCertificate(rand.Reader, &clientCRTTemplate, i.Cert, clientCSR.PublicKey, i.PrivateKey)

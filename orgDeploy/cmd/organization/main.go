@@ -26,6 +26,9 @@ const (
 )
 
 func main() {
+}
+
+func setup() {
 	consulReg := consul.NewRegistry(registry.Addrs("127.0.0.1:8500"))
 
 	x509KeyPair, err := tls.LoadX509KeyPair(clientCert, clientKey)
@@ -105,7 +108,7 @@ func main() {
 
 }
 
-func e() {
+func setup1() {
 
 	consulReg := consul.NewRegistry(registry.Addrs("127.0.0.1:8500"))
 

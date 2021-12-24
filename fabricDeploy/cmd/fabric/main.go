@@ -36,7 +36,7 @@ func init() {
 	// 冒号前面可填ip地址，默认localhost
 }
 
-func e() {
+func man() {
 
 	microservice := micro.NewService(
 		//		micro.Client(grpcserver),
@@ -128,6 +128,7 @@ func main() {
 	service.Init()
 
 	err = proto.RegisterTestServiceHandler(grpcserver, new(handler.TestService))
+
 	if err != nil {
 		fmt.Println(err)
 	}
