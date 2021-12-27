@@ -1,0 +1,1 @@
+time="2021-12-27T16:59:19+08:00" level=info msg="2021-12-27 16:59:19.741123999 +0800 CST m=+3.755848639 Grpc Test !!! \n" func="github.com/FuradWho/BlockchainDataColla/fabricDeploy/web/handler.(*TestService).GetTest" file="/home/fabric/GolandProjects/BlockchainDataColla/fabricDeploy/web/handler/testservice.go:15"

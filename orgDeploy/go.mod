@@ -7,6 +7,7 @@ require (
 	github.com/asim/go-micro/plugins/registry/consul/v3 v3.7.0
 	github.com/asim/go-micro/v3 v3.7.0
 	github.com/lestrrat-go/file-rotatelogs v2.4.0+incompatible
+	github.com/prometheus/common v0.6.0
 	github.com/sirupsen/logrus v1.7.0
 	google.golang.org/protobuf v1.27.1
 )
@@ -15,6 +16,8 @@ require (
 	github.com/Microsoft/go-winio v0.5.0 // indirect
 	github.com/ProtonMail/go-crypto v0.0.0-20210428141323-04723f9f07d7 // indirect
 	github.com/acomagu/bufpipe v1.0.3 // indirect
+	github.com/alecthomas/template v0.0.0-20160405071501-a0175ee3bccc // indirect
+	github.com/alecthomas/units v0.0.0-20151022065526-2efee857e7cf // indirect
 	github.com/armon/go-metrics v0.0.0-20180917152333-f0300d1749da // indirect
 	github.com/bitly/go-simplejson v0.5.0 // indirect
 	github.com/cpuguy83/go-md2man/v2 v2.0.0 // indirect
@@ -61,6 +64,7 @@ require (
 	golang.org/x/text v0.3.6 // indirect
 	google.golang.org/genproto v0.0.0-20200806141610-86f49bd18e98 // indirect
 	google.golang.org/grpc v1.38.0 // indirect
+	gopkg.in/alecthomas/kingpin.v2 v2.2.6 // indirect
 	gopkg.in/tomb.v1 v1.0.0-20141024135613-dd632973f1e7 // indirect
 	gopkg.in/warnings.v0 v0.1.2 // indirect
 )
