@@ -3,17 +3,19 @@ package micro_services
 import (
 	"crypto/tls"
 	"crypto/x509"
-	"github.com/asim/go-micro/plugins/client/grpc/v3"
+	"fmt"
 	"github.com/asim/go-micro/plugins/registry/consul/v3"
-	"github.com/asim/go-micro/v3/client"
+	grpc "github.com/asim/go-micro/plugins/server/grpc/v3"
+	"github.com/asim/go-micro/v3/broker"
 	"github.com/asim/go-micro/v3/registry"
+	"github.com/asim/go-micro/v3/server"
 	"io/ioutil"
 )
 
 const (
-	serverCert = "/home/fabric/GolandProjects/BlockchainDataColla/caServer/msp/signcert/ca.pem"
-	clientKey  = "/home/fabric/GolandProjects/BlockchainDataColla/orgDeploy/msp/keystore/client_private_key.pem"
-	clientCert = "/home/fabric/GolandProjects/BlockchainDataColla/orgDeploy/msp/signcerts/client-ca-cert.crt"
+	serverKey  = "/home/fabric/GolandProjects/BlockchainDataColla/fabricDeploy/msp/keystore/fabric_private_key.pem"
+	serverCert = "/home/fabric/GolandProjects/BlockchainDataColla/fabricDeploy/msp/signcert/client-ca-cert.crt"
+	clientCert = "/home/fabric/GolandProjects/BlockchainDataColla/fabricDeploy/msp/ca/ca.pem"
 )
 
 var consulReg = consul.NewRegistry(registry.Addrs("127.0.0.1:8500"))
@@ -24,42 +26,41 @@ type Foo struct {
 
 type Option struct {
 	Registry   registry.Registry
-	Client     client.Client
+	Server     server.Server
+	Broker     broker.Broker
 	ServerName string
+	Version    string
 }
 
 type ModOption func(option *Option)
 
 func NewFabricOption(modOption ModOption) (*Foo, error) {
 
-	x509KeyPair, err := tls.LoadX509KeyPair(clientCert, clientKey)
+	grpcServer := grpc.NewServer()
+
+	x509KeyPair, err := tls.LoadX509KeyPair(serverCert, serverKey)
 	if err != nil {
-		return nil, err
+		fmt.Println(err)
 	}
 	certPool := x509.NewCertPool()
-	certBytes, err := ioutil.ReadFile(serverCert)
+	certBytes, err := ioutil.ReadFile(clientCert)
 	if err != nil {
 		return nil, err
 	}
 
 	certPool.AppendCertsFromPEM(certBytes)
 
-	tlsConfig := &tls.Config{
-		RootCAs:            certPool,
+	grpcServer.Init(grpc.AuthTLS(&tls.Config{
 		Certificates:       []tls.Certificate{x509KeyPair},
+		ClientCAs:          certPool,
 		InsecureSkipVerify: false,
-	}
-
-	grpcServer := grpc.NewClient()
-	err = grpcServer.Init(grpc.AuthTLS(tlsConfig))
-	if err != nil {
-		return nil, err
-	}
+	}))
 
 	option := Option{
-		Client:     grpcServer,
+		Server:     grpcServer,
 		Registry:   consulReg,
 		ServerName: "default",
+		Version:    "1.0",
 	}
 
 	modOption(&option)
@@ -84,9 +85,9 @@ func NewCaOption(modOption ModOption) (*Foo, error) {
 
 }
 
-func WithClient(client client.Client) ModOption {
+func WithServer(server server.Server) ModOption {
 	return func(option *Option) {
-		option.Client = client
+		option.Server = server
 	}
 }
 

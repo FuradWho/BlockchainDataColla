@@ -2,54 +2,43 @@ package main
 
 import (
 	"context"
-	"crypto/tls"
-	"crypto/x509"
 	"fmt"
 	cert "github.com/FuradWho/BlockchainDataColla/fabricDeploy/common/cert_apply"
+	"github.com/FuradWho/BlockchainDataColla/fabricDeploy/common/micro_services"
 	proto "github.com/FuradWho/BlockchainDataColla/fabricDeploy/proto"
 	"github.com/FuradWho/BlockchainDataColla/fabricDeploy/proto/csr"
 	_ "github.com/FuradWho/BlockchainDataColla/fabricDeploy/third_party/logger"
 	handler "github.com/FuradWho/BlockchainDataColla/fabricDeploy/web/handler"
 	nats "github.com/asim/go-micro/plugins/broker/nats/v3"
-	"github.com/asim/go-micro/plugins/registry/consul/v3"
-	grpc "github.com/asim/go-micro/plugins/server/grpc/v3"
 	"github.com/asim/go-micro/v3"
 	"github.com/asim/go-micro/v3/broker"
-	"github.com/asim/go-micro/v3/registry"
 	log "github.com/sirupsen/logrus"
-	"io/ioutil"
 )
 
 const (
 	ServerName   = "FuradWho.BlockchainDataColla.fabricDeploy"
-	serverKey    = "/home/fabric/GolandProjects/BlockchainDataColla/fabricDeploy/msp/keystore/fabric_private_key.pem"
-	serverCert   = "/home/fabric/GolandProjects/BlockchainDataColla/fabricDeploy/msp/signcert/client-ca-cert.crt"
-	clientCert   = "/home/fabric/GolandProjects/BlockchainDataColla/fabricDeploy/msp/ca/ca.pem"
 	caServerName = "FuradWho.BlockchainDataColla.caServer"
 )
 
-var consulReg registry.Registry
-
-func init() {
-	consulReg = consul.NewRegistry(
-		registry.Addrs(":8500")) // 告知consul的端口号，如果走默认可以不填写
-	// 冒号前面可填ip地址，默认localhost
-}
-
 func man() {
 
-	microservice := micro.NewService(
-		//		micro.Client(grpcserver),
-		micro.Name(caServerName),
-		micro.Registry(consulReg),
-	)
+	caOption, err := micro_services.NewCaOption(func(option *micro_services.Option) {
+		option.ServerName = caServerName
+	})
+	if err != nil {
+		log.Errorln(err)
+	}
 
+	microservice := micro.NewService(
+		micro.Name(caOption.Option.ServerName),
+		micro.Registry(caOption.Option.Registry),
+	)
 	microservice.Init()
 
-	test := csr.NewCrsService(caServerName, microservice.Client())
+	test := csr.NewCrsService(caOption.Option.ServerName, microservice.Client())
 
 	certInfo := new(cert.Crt)
-	err := certInfo.CreatePairKey()
+	err = certInfo.CreatePairKey()
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -85,11 +74,11 @@ func man() {
 
 func main() {
 
-	natsbroker := nats.NewBroker()
-	natsbroker.Init(broker.Addrs("nats://0.0.0.0:4222"))
-	natsbroker.Connect()
+	natsBroker := nats.NewBroker()
+	natsBroker.Init(broker.Addrs("nats://0.0.0.0:4222"))
+	natsBroker.Connect()
 
-	err := natsbroker.Publish("test", &broker.Message{
+	err := natsBroker.Publish("test", &broker.Message{
 		Header: map[string]string{"type": "test"},
 		Body:   []byte("test broker nats"),
 	})
@@ -97,37 +86,25 @@ func main() {
 		log.Errorf("%s \n", err)
 	}
 
-	grpcserver := grpc.NewServer()
-
-	x509KeyPair, err := tls.LoadX509KeyPair(serverCert, serverKey)
+	fabricOption, err := micro_services.NewFabricOption(func(option *micro_services.Option) {
+		option.Broker = natsBroker
+		option.ServerName = ServerName
+	})
 	if err != nil {
-		fmt.Println(err)
+		log.Errorln(err)
 	}
-	certPool := x509.NewCertPool()
-	certBytes, err := ioutil.ReadFile(clientCert)
-	if err != nil {
-		return
-	}
-
-	certPool.AppendCertsFromPEM(certBytes)
-
-	grpcserver.Init(grpc.AuthTLS(&tls.Config{
-		Certificates:       []tls.Certificate{x509KeyPair},
-		ClientCAs:          certPool,
-		InsecureSkipVerify: false,
-	}))
 
 	// grpcserver.Start()
 	service := micro.NewService(
-		micro.Server(grpcserver),
-		micro.Name(ServerName),
-		micro.Registry(consulReg),
-		micro.Version("1.0"),
-		micro.Broker(natsbroker))
+		micro.Server(fabricOption.Option.Server),
+		micro.Name(fabricOption.Option.ServerName),
+		micro.Registry(fabricOption.Option.Registry),
+		micro.Version(fabricOption.Option.Version),
+		micro.Broker(fabricOption.Option.Broker))
 
 	service.Init()
 
-	err = proto.RegisterTestServiceHandler(grpcserver, new(handler.TestService))
+	err = proto.RegisterTestServiceHandler(fabricOption.Option.Server, new(handler.TestService))
 
 	if err != nil {
 		fmt.Println(err)

@@ -1,0 +1,17 @@
+version: "3"
+
+networks:
+  colla-postgreSql:
+
+services:
+  postgreSql:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_DB: db_micro
+      POSTGRES_USER: furad
+      POSTGRES_PASSWORD: furad
+    volumes:
+      - /data/postgreSql:/var/lib/postgreSql/data
+    ports:
+      - "5432:5432"

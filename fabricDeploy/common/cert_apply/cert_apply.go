@@ -90,7 +90,7 @@ func (c *Crt) CreateCSR() ([]byte, error) {
 			OrganizationalUnit: []string{"fabric"},
 			CommonName:         "colla.fabric.com",
 		},
-		IPAddresses:    []net.IP{net.IPv4(127, 0, 0, 1), net.IPv4(192, 168, 175, 143)},
+		IPAddresses:    []net.IP{net.IPv4(127, 0, 0, 1), net.IPv4(192, 168, 175, 133)},
 		DNSNames:       []string{"colla.fabric.com", "localhost"},
 		EmailAddresses: []string{"liu1337543811@gmail.com"},
 	}
