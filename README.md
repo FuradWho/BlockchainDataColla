@@ -1,13 +1,25 @@
-# BlockchainDataColla
+# BlockchainDataColla [![License](https://img.shields.io/:license-apache-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![Go.Dev reference](https://img.shields.io/badge/go.dev-reference-007d9c?logo=go&logoColor=white&style=flat-square)](https://pkg.go.dev/go-micro.dev/v4?tab=doc)
 
-- 项目背景
+`Hyperledger Fabric` 实验性项目
+
+## 文档目录
+
+- [项目背景](#项目背景)
 - [安装](#安装)
-- 使用
-- Badge
-- 相关项目（可选）
-- 主要项目负责人
-- 参与贡献方式
-- 开源协议
+- [使用](#使用)
+- [Badge](#Badge)
+- [相关项目](#相关项目)
+- [主要项目负责人](#主要项目负责人)
+- [参与贡献方式](#参与贡献方式)
+- [开源协议](#开源协议)
+
+## 项目背景
+
+基于 `Fabric` 以及`go-micro`设计的消息协同系统。
+
+… TODO 
+
+
 
 ## 安装
 
@@ -88,4 +100,30 @@ go get -u github.com/asim/go-micro/cmd/protoc-gen-micro/v3
  protoc --plugin=protoc-gen-go=D:\proiect2021\GO\bin\protoc-gen-go.exe --plugin=protoc-gen-micro=D:\proiect2021\GO\bin\protoc-gen-micro.exe --micro_out=E:\projects\BlockchainData
 Colla\fabricDeploy\proto --go_out=. Test.proto
 ```
+
+
+
+## 使用
+
+
+
+## Badge
+
+
+
+### 相关项目
+
+
+
+## 主要项目负责人
+
+
+
+## 参与贡献方式
+
+
+
+## 开源协议
+
+
 
