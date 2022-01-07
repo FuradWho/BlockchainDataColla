@@ -10,15 +10,15 @@ import (
 
 /*
 const (
-	PublicKeyFile  = "/home/fabric/GolandProjects/BlockchainDataColla/caServer/msp/signcert/ca.pem"
-	PrivateKeyFile = "/home/fabric/GolandProjects/BlockchainDataColla/caServer/msp/keystore/ca.key"
+	PublicKeyFile  = "/home/fabric/GolandProjects/BlockchainDataColla/ca_server/msp/signcert/ca.pem"
+	PrivateKeyFile = "/home/fabric/GolandProjects/BlockchainDataColla/ca_server/msp/keystore/ca.key"
 )
 
 */
 
 const (
-	PublicKeyFile  = "E:\\projects\\BlockchainDataColla\\caServer\\msp\\signcert\\ca.pem"
-	PrivateKeyFile = "E:\\projects\\BlockchainDataColla\\caServer\\msp\\keystore\\ca.key"
+	PublicKeyFile  = "E:\\projects\\BlockchainDataColla\\ca_server\\msp\\signcert\\ca.pem"
+	PrivateKeyFile = "E:\\projects\\BlockchainDataColla\\ca_server\\msp\\keystore\\ca.key"
 )
 
 type CrsHandler struct {

@@ -18,14 +18,14 @@ type IssueCert struct {
 }
 
 /*
-	const CrtsFilePath = "/home/fabric/GolandProjects/BlockchainDataColla/caServer/msp/clientcrt/"
+	const CrtsFilePath = "/home/fabric/GolandProjects/BlockchainDataColla/ca_server/msp/clientcrt/"
 */
 
 const (
-	CrtsFilePath = "E:\\projects\\BlockchainDataColla\\caServer\\msp\\clientcrt\\"
+	CrtsFilePath = "E:\\projects\\BlockchainDataColla\\ca_server\\msp\\clientcrt\\"
 
-	// CaFilePath = "/home/fabric/GolandProjects/BlockchainDataColla/caServer/msp/signcert/ca.pem"
-	CaFilePath = "E:\\projects\\BlockchainDataColla\\caServer\\msp\\signcert\\ca.pem"
+	// CaFilePath = "/home/fabric/GolandProjects/BlockchainDataColla/ca_server/msp/signcert/ca.pem"
+	CaFilePath = "E:\\projects\\BlockchainDataColla\\ca_server\\msp\\signcert\\ca.pem"
 )
 
 func (i *IssueCert) GetPublicKey(PublicFile string) *x509.Certificate {

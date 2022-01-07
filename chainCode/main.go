@@ -2,13 +2,13 @@ package main
 
 import (
 	"fmt"
-	"github.com/FuradWho/BlockchainDataColla/chaincode/chaincode/edu_chaincode"
+	"github.com/FuradWho/BlockchainDataColla/chaincode/chaincode/message_chaincode"
 	"github.com/hyperledger/fabric-chaincode-go/shim"
 )
 
 func main() {
-	err := shim.Start(new(edu_chaincode.EducationChaincode))
+	err := shim.Start(new(message_chaincode.MsgChaincode))
 	if err != nil {
-		fmt.Printf("启动EducationChaincode时发生错误: %s", err)
+		fmt.Printf("main: An error occurred while starting EducationChaincode!: %s", err)
 	}
 }

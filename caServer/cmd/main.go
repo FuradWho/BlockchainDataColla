@@ -12,7 +12,7 @@ import (
 )
 
 const (
-	ServerName = "FuradWho.BlockchainDataColla.caServer"
+	ServerName = "FuradWho.BlockchainDataColla.ca_server"
 )
 
 var consulReg registry.Registry
