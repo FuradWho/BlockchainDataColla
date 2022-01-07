@@ -3,7 +3,7 @@ package test
 import (
 	"encoding/json"
 	"fmt"
-	chaincode "github.com/FuradWho/BlockchainDataColla/chaincode/chaincode/eduChaincode"
+	chaincode "github.com/FuradWho/BlockchainDataColla/chaincode/chaincode/edu_chaincode"
 	"github.com/FuradWho/BlockchainDataColla/chaincode/model/education"
 	"github.com/hyperledger/fabric-chaincode-go/shimtest"
 	"testing"

@@ -1,4 +1,4 @@
-package eduChaincode
+package edu_chaincode
 
 import (
 	"bytes"
