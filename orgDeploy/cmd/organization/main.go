@@ -68,7 +68,7 @@ func main() {
 
 }
 
-func setup1() {
+func man() {
 	caOption, err := micro_services.NewCaOption(func(option *micro_services.Option) {
 		option.ServerName = caServerName
 	})

@@ -75,7 +75,7 @@ func man() {
 func main() {
 
 	natsBroker := nats.NewBroker()
-	natsBroker.Init(broker.Addrs("nats://0.0.0.0:4222"))
+	natsBroker.Init(broker.Addrs("nats://192.168.0.95:4222"))
 	natsBroker.Connect()
 
 	err := natsBroker.Publish("test", &broker.Message{

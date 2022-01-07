@@ -17,7 +17,16 @@ type IssueCert struct {
 	PrivateKey *rsa.PrivateKey
 }
 
-const CrtsFilePath = "/home/fabric/GolandProjects/BlockchainDataColla/caServer/msp/clientcrt/"
+/*
+	const CrtsFilePath = "/home/fabric/GolandProjects/BlockchainDataColla/caServer/msp/clientcrt/"
+*/
+
+const (
+	CrtsFilePath = "E:\\projects\\BlockchainDataColla\\caServer\\msp\\clientcrt\\"
+
+	// CaFilePath = "/home/fabric/GolandProjects/BlockchainDataColla/caServer/msp/signcert/ca.pem"
+	CaFilePath = "E:\\projects\\BlockchainDataColla\\caServer\\msp\\signcert\\ca.pem"
+)
 
 func (i *IssueCert) GetPublicKey(PublicFile string) *x509.Certificate {
 
@@ -117,7 +126,7 @@ func (i *IssueCert) CrsCreateCrt(crsFile []byte, cn string) (error, []byte) {
 }
 
 func (i IssueCert) GetCaCrt() (error, []byte) {
-	caBytes, err := ioutil.ReadFile("/home/fabric/GolandProjects/BlockchainDataColla/caServer/msp/signcert/ca.pem")
+	caBytes, err := ioutil.ReadFile(CaFilePath)
 	if err != nil {
 		return err, nil
 	}

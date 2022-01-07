@@ -19,7 +19,7 @@ var consulReg registry.Registry
 
 func init() {
 	consulReg = consul.NewRegistry(
-		registry.Addrs(":8500"))
+		registry.Addrs("192.168.0.95:8500"))
 }
 
 func main() {

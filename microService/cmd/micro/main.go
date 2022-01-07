@@ -12,7 +12,7 @@ import (
 func main() {
 	// 1.添加consul地址
 	cr := consul.NewRegistry(
-		registry.Addrs("127.0.0.1:8500"))
+		registry.Addrs("192.168.0.95:8500"))
 
 	// 2.使用gin作为router
 	router := gin.Default()

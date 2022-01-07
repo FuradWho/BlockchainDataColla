@@ -10,10 +10,19 @@ import (
 	"os"
 )
 
+/*
 const (
 	PrivateKeyFilesPath = "/home/fabric/GolandProjects/BlockchainDataColla/orgDeploy/msp/keystore/"
 	PublicKeyFilesPath  = "/home/fabric/GolandProjects/BlockchainDataColla/orgDeploy/msp/keystore/"
 	SignCertFilesPath   = "/home/fabric/GolandProjects/BlockchainDataColla/orgDeploy/msp/signcerts/"
+)
+
+*/
+
+const (
+	PrivateKeyFilesPath = "E:\\projects\\BlockchainDataColla\\orgDeploy\\msp\\keystore\\"
+	PublicKeyFilesPath  = "E:\\projects\\BlockchainDataColla\\orgDeploy\\msp\\keystore\\"
+	SignCertFilesPath   = "E:\\projects\\BlockchainDataColla\\orgDeploy\\msp\\signcerts\\"
 )
 
 type Crt struct {

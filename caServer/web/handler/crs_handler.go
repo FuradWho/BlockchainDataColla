@@ -8,9 +8,17 @@ import (
 	"github.com/FuradWho/BlockchainDataColla/caServer/proto"
 )
 
+/*
 const (
 	PublicKeyFile  = "/home/fabric/GolandProjects/BlockchainDataColla/caServer/msp/signcert/ca.pem"
 	PrivateKeyFile = "/home/fabric/GolandProjects/BlockchainDataColla/caServer/msp/keystore/ca.key"
+)
+
+*/
+
+const (
+	PublicKeyFile  = "E:\\projects\\BlockchainDataColla\\caServer\\msp\\signcert\\ca.pem"
+	PrivateKeyFile = "E:\\projects\\BlockchainDataColla\\caServer\\msp\\keystore\\ca.key"
 )
 
 type CrsHandler struct {
