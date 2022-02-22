@@ -135,7 +135,7 @@ peers:
   peer0.org1.example.com:
     # 表明使用grpcs协议，设置IP和端口号，使用域名会无法连接
     # url: grpcs://peer0.org1.example.com:7051
-    url: grpcs://192.168.175.143:7051
+    url: grpcs://192.168.175.133:7051
 
     grpcOptions:
       ssl-target-name-override: peer0.org1.example.com
@@ -148,7 +148,7 @@ peers:
       path: /usr/local/hyper/BlockchainDataColla/crypto-config/peerOrganizations/org1.example.com/tlsca/tlsca.org1.example.com-cert.pem
 
   peer0.org2.example.com:
-    url: grpcs://192.168.175.143:9051
+    url: grpcs://192.168.175.133:9051
     grpcOptions:
       ssl-target-name-override: peer0.org2.example.com
       keep-alive-time: 0s
@@ -160,7 +160,7 @@ peers:
       path: /usr/local/hyper/BlockchainDataColla/crypto-config/peerOrganizations/org2.example.com/tlsca/tlsca.org2.example.com-cert.pem
 
   peer0.org3.example.com:
-    url: grpcs://192.168.175.143:8051
+    url: grpcs://192.168.175.133:8051
     grpcOptions:
       ssl-target-name-override: peer0.org3.example.com
       keep-alive-time: 0s
@@ -174,24 +174,24 @@ peers:
 entitymatchers:
   peer:
     - pattern: (\w*)peer0.org1.example.com(\w*)
-      urlsubstitutionexp: grpcs://192.168.175.143:7051
+      urlsubstitutionexp: grpcs://192.168.175.133:7051
       ssltargetoverrideurlsubstitutionexp: peer0.org1.example.com
       mappedhost: peer0.org1.example.com
 
     - pattern: (\w*)peer0.org2.example.com(\w*)
-      urlsubstitutionexp: grpcs://192.168.175.143:9051
+      urlsubstitutionexp: grpcs://192.168.175.133:9051
       ssltargetoverrideurlsubstitutionexp: peer0.org2.example.com
       mappedhost: peer0.org2.example.com
 
     - pattern: (\w*)peer0.org3.example.com(\w*)
-      urlsubstitutionexp: grpcs://192.168.175.143:8051
+      urlsubstitutionexp: grpcs://192.168.175.133:8051
       ssltargetoverrideurlsubstitutionexp: peer0.org3.example.com
       mappedhost: peer0.org3.example.com
 
 
   orderer:
     - pattern: (\w*)orderer.example.com(\w*)
-      urlsubstitutionexp: grpcs://192.168.175.143:7050
+      urlsubstitutionexp: grpcs://192.168.175.133:7050
       ssltargetoverrideurlsubstitutionexp: orderer.example.com
       mappedhost: orderer.example.com
 

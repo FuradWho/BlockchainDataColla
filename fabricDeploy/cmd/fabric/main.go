@@ -5,6 +5,7 @@ import (
 	"fmt"
 	cert "github.com/FuradWho/BlockchainDataColla/fabricDeploy/common/cert_apply"
 	"github.com/FuradWho/BlockchainDataColla/fabricDeploy/common/micro_services"
+	"github.com/FuradWho/BlockchainDataColla/fabricDeploy/common/msg_client"
 	proto "github.com/FuradWho/BlockchainDataColla/fabricDeploy/proto"
 	"github.com/FuradWho/BlockchainDataColla/fabricDeploy/proto/csr"
 	_ "github.com/FuradWho/BlockchainDataColla/fabricDeploy/third_party/logger"
@@ -20,7 +21,7 @@ const (
 	caServerName = "FuradWho.BlockchainDataColla.caServer"
 )
 
-func man() {
+func CRT() {
 
 	caOption, err := micro_services.NewCaOption(func(option *micro_services.Option) {
 		option.ServerName = caServerName
@@ -72,10 +73,10 @@ func man() {
 	//}
 }
 
-func main() {
+func Conn() {
 
 	natsBroker := nats.NewBroker()
-	natsBroker.Init(broker.Addrs("nats://192.168.0.95:4222"))
+	natsBroker.Init(broker.Addrs("nats://192.168.175.133:4222"))
 	natsBroker.Connect()
 
 	err := natsBroker.Publish("test", &broker.Message{
@@ -111,4 +112,16 @@ func main() {
 	}
 
 	_ = service.Run()
+}
+
+func Test() {
+	client := msg_client.FabricClient{}
+	err := client.Init()
+	if err != nil {
+		fmt.Println(err)
+	}
+}
+
+func main() {
+	Test()
 }

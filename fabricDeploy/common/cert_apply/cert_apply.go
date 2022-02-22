@@ -12,17 +12,19 @@ import (
 )
 
 const (
-	/*
-		linux path:
 
-		PrivateKeyFilesPath = "/home/fabric/GolandProjects/BlockchainDataColla/fabricDeploy/msp/keystore/"
-		PublicKeyFilesPath  = "/home/fabric/GolandProjects/BlockchainDataColla/fabricDeploy/msp/keystore/"
-		SignCertFilesPath   = "/home/fabric/GolandProjects/BlockchainDataColla/fabricDeploy/msp/signcert/"
+	// linux path:
+
+	PrivateKeyFilesPath = "/home/fabric/GolandProjects/BlockchainDataColla/fabricDeploy/msp/keystore/"
+	PublicKeyFilesPath  = "/home/fabric/GolandProjects/BlockchainDataColla/fabricDeploy/msp/keystore/"
+	SignCertFilesPath   = "/home/fabric/GolandProjects/BlockchainDataColla/fabricDeploy/msp/signcert/"
+
+	/*
+		PrivateKeyFilesPath = "E:\\projects\\BlockchainDataColla\\fabricDeploy\\msp\\keystore\\"
+		PublicKeyFilesPath  = "E:\\projects\\BlockchainDataColla\\fabricDeploy\\msp\\keystore\\"
+		SignCertFilesPath   = "E:\\projects\\BlockchainDataColla\\fabricDeploy\\msp\\signcert\\"
 	*/
 
-	PrivateKeyFilesPath = "E:\\projects\\BlockchainDataColla\\fabricDeploy\\msp\\keystore\\"
-	PublicKeyFilesPath  = "E:\\projects\\BlockchainDataColla\\fabricDeploy\\msp\\keystore\\"
-	SignCertFilesPath   = "E:\\projects\\BlockchainDataColla\\fabricDeploy\\msp\\signcert\\"
 )
 
 type Crt struct {
@@ -102,7 +104,8 @@ func (c *Crt) CreateCSR() ([]byte, error) {
 			net.IPv4(127, 0, 0, 1),
 			net.IPv4(192, 168, 175, 133),
 			net.IPv4(192, 168, 152, 1),
-			net.IPv4(192, 168, 0, 95),
+			net.IPv4(192, 168, 2, 4),
+			net.IPv4(192, 168, 2, 3),
 		},
 		DNSNames:       []string{"colla.fabric.com", "localhost"},
 		EmailAddresses: []string{"liu1337543811@gmail.com"},

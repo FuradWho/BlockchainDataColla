@@ -12,14 +12,14 @@ import (
 )
 
 const (
-	ServerName = "FuradWho.BlockchainDataColla.ca_server"
+	ServerName = "FuradWho.BlockchainDataColla.caServer"
 )
 
 var consulReg registry.Registry
 
 func init() {
 	consulReg = consul.NewRegistry(
-		registry.Addrs("192.168.0.95:8500"))
+		registry.Addrs("192.168.2.4:8500"))
 }
 
 func main() {

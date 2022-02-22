@@ -10,22 +10,22 @@ import (
 	"io/ioutil"
 )
 
-/*
 const (
 	serverCert = "/home/fabric/GolandProjects/BlockchainDataColla/caServer/msp/signcert/ca.pem"
 	clientKey  = "/home/fabric/GolandProjects/BlockchainDataColla/orgDeploy/msp/keystore/client_private_key.pem"
 	clientCert = "/home/fabric/GolandProjects/BlockchainDataColla/orgDeploy/msp/signcerts/client-ca-cert.crt"
 )
 
-*/
-
+/*
 const (
 	serverCert = "E:\\projects\\BlockchainDataColla\\orgDeploy\\msp\\ca\\ca.pem"
 	clientKey  = "E:\\projects\\BlockchainDataColla\\orgDeploy\\msp\\keystore\\client_private_key.pem"
 	clientCert = "E:\\projects\\BlockchainDataColla\\orgDeploy\\msp\\signcerts\\client-ca-cert.crt"
 )
 
-var consulReg = consul.NewRegistry(registry.Addrs("192.168.0.95:8500"))
+*/
+
+var consulReg = consul.NewRegistry(registry.Addrs("192.168.2.4:8500"))
 
 type Foo struct {
 	Option Option

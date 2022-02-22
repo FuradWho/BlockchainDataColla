@@ -13,12 +13,16 @@ import (
 )
 
 const (
-	serverKey  = "E:\\projects\\BlockchainDataColla\\fabricDeploy\\msp\\keystore\\fabric_private_key.pem"
-	serverCert = "E:\\projects\\BlockchainDataColla\\fabricDeploy\\msp\\signcert\\client-ca-cert.crt"
-	clientCert = "E:\\projects\\BlockchainDataColla\\fabricDeploy\\msp\\ca\\ca.pem"
+	//serverKey  = "E:\\projects\\BlockchainDataColla\\fabricDeploy\\msp\\keystore\\fabric_private_key.pem"
+	//serverCert = "E:\\projects\\BlockchainDataColla\\fabricDeploy\\msp\\signcert\\client-ca-cert.crt"
+	//clientCert = "E:\\projects\\BlockchainDataColla\\fabricDeploy\\msp\\ca\\ca.pem"
+
+	serverKey  = "/home/fabric/GolandProjects/BlockchainDataColla/fabricDeploy/msp/keystore/fabric_private_key.pem"
+	serverCert = "/home/fabric/GolandProjects/BlockchainDataColla/fabricDeploy/msp/signcert/client-ca-cert.crt"
+	clientCert = "/home/fabric/GolandProjects/BlockchainDataColla/fabricDeploy/msp/ca/ca.pem"
 )
 
-var consulReg = consul.NewRegistry(registry.Addrs("192.168.0.95:8500"))
+var consulReg = consul.NewRegistry(registry.Addrs("192.168.175.133:8500"))
 
 type Foo struct {
 	Option Option
