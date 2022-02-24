@@ -15,9 +15,9 @@ const (
 
 	// linux path:
 
-	PrivateKeyFilesPath = "/home/fabric/GolandProjects/BlockchainDataColla/fabricDeploy/msp/keystore/"
-	PublicKeyFilesPath  = "/home/fabric/GolandProjects/BlockchainDataColla/fabricDeploy/msp/keystore/"
-	SignCertFilesPath   = "/home/fabric/GolandProjects/BlockchainDataColla/fabricDeploy/msp/signcert/"
+	PrivateKeyFilesPath = "/home/furad/GolandProjects/BlockchainDataColla/fabricDeploy/msp/keystore/"
+	PublicKeyFilesPath  = "/home/furad/GolandProjects/BlockchainDataColla/fabricDeploy/msp/keystore/"
+	SignCertFilesPath   = "/home/furad/GolandProjects/BlockchainDataColla/fabricDeploy/msp/signcert/"
 
 	/*
 		PrivateKeyFilesPath = "E:\\projects\\BlockchainDataColla\\fabricDeploy\\msp\\keystore\\"
@@ -103,6 +103,7 @@ func (c *Crt) CreateCSR() ([]byte, error) {
 		IPAddresses: []net.IP{
 			net.IPv4(127, 0, 0, 1),
 			net.IPv4(192, 168, 175, 133),
+			net.IPv4(192, 168, 175, 129),
 			net.IPv4(192, 168, 152, 1),
 			net.IPv4(192, 168, 2, 4),
 			net.IPv4(192, 168, 2, 3),

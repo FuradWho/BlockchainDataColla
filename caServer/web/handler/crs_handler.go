@@ -9,8 +9,8 @@ import (
 )
 
 const (
-	PublicKeyFile  = "/home/fabric/GolandProjects/BlockchainDataColla/caServer/msp/signcert/ca.pem"
-	PrivateKeyFile = "/home/fabric/GolandProjects/BlockchainDataColla/caServer/msp/keystore/ca.key"
+	PublicKeyFile  = "/home/furad/GolandProjects/BlockchainDataColla/caServer/msp/signcert/ca.pem"
+	PrivateKeyFile = "/home/furad/GolandProjects/BlockchainDataColla/caServer/msp/keystore/ca.key"
 )
 
 /*

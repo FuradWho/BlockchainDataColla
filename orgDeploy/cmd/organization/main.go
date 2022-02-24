@@ -18,7 +18,7 @@ const (
 	caServerName     = "FuradWho.BlockchainDataColla.caServer"
 )
 
-func main() {
+func Conn() {
 
 	fabricOption, err := micro_services.NewFabricOption(func(option *micro_services.Option) {
 		option.ServerName = fabricServerName
@@ -68,7 +68,7 @@ func main() {
 
 }
 
-func man() {
+func CRT() {
 	caOption, err := micro_services.NewCaOption(func(option *micro_services.Option) {
 		option.ServerName = caServerName
 	})
@@ -109,4 +109,7 @@ func man() {
 		log.Errorln(err)
 	}
 
+}
+func main() {
+	Conn()
 }

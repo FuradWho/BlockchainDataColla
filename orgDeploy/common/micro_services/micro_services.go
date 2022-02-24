@@ -11,9 +11,9 @@ import (
 )
 
 const (
-	serverCert = "/home/fabric/GolandProjects/BlockchainDataColla/caServer/msp/signcert/ca.pem"
-	clientKey  = "/home/fabric/GolandProjects/BlockchainDataColla/orgDeploy/msp/keystore/client_private_key.pem"
-	clientCert = "/home/fabric/GolandProjects/BlockchainDataColla/orgDeploy/msp/signcerts/client-ca-cert.crt"
+	serverCert = "/home/furad/GolandProjects/BlockchainDataColla/caServer/msp/signcert/ca.pem"
+	clientKey  = "/home/furad/GolandProjects/BlockchainDataColla/orgDeploy/msp/keystore/client_private_key.pem"
+	clientCert = "/home/furad/GolandProjects/BlockchainDataColla/orgDeploy/msp/signcerts/client-ca-cert.crt"
 )
 
 /*
@@ -25,7 +25,7 @@ const (
 
 */
 
-var consulReg = consul.NewRegistry(registry.Addrs("192.168.2.4:8500"))
+var consulReg = consul.NewRegistry(registry.Addrs("192.168.175.129:8500"))
 
 type Foo struct {
 	Option Option

@@ -21,7 +21,7 @@ import (
 
 const (
 	channelId        = "mychannel"
-	connectConfigDir = "/home/fabric/GolandProjects/BlockchainDataColla/fabricDeploy/configs/connect-config/sdk-connection-config.yaml"
+	connectConfigDir = "/home/furad/GolandProjects/BlockchainDataColla/fabricDeploy/configs/connect-config/sdk-connection-config.yaml"
 	chaincodeId      = "mycc_0"
 	chaincodePath    = "newchaincode/test"
 	ccVersion        = "0"

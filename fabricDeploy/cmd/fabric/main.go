@@ -76,7 +76,7 @@ func CRT() {
 func Conn() {
 
 	natsBroker := nats.NewBroker()
-	natsBroker.Init(broker.Addrs("nats://192.168.175.133:4222"))
+	natsBroker.Init(broker.Addrs("nats://192.168.175.129:4222"))
 	natsBroker.Connect()
 
 	err := natsBroker.Publish("test", &broker.Message{
@@ -123,5 +123,5 @@ func Test() {
 }
 
 func main() {
-	Test()
+	Conn()
 }

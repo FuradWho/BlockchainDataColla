@@ -11,9 +11,9 @@ import (
 )
 
 const (
-	PrivateKeyFilesPath = "/home/fabric/GolandProjects/BlockchainDataColla/orgDeploy/msp/keystore/"
-	PublicKeyFilesPath  = "/home/fabric/GolandProjects/BlockchainDataColla/orgDeploy/msp/keystore/"
-	SignCertFilesPath   = "/home/fabric/GolandProjects/BlockchainDataColla/orgDeploy/msp/signcerts/"
+	PrivateKeyFilesPath = "/home/furad/GolandProjects/BlockchainDataColla/orgDeploy/msp/keystore/"
+	PublicKeyFilesPath  = "/home/furad/GolandProjects/BlockchainDataColla/orgDeploy/msp/keystore/"
+	SignCertFilesPath   = "/home/furad/GolandProjects/BlockchainDataColla/orgDeploy/msp/signcerts/"
 )
 
 /*
