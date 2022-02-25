@@ -2,10 +2,12 @@ package main
 
 import (
 	_ "github.com/FuradWho/BlockchainDataColla/orgDeploy/pkg/setting"
-	fabric "github.com/FuradWho/BlockchainDataColla/orgDeploy/service/fabric_service"
 	_ "github.com/FuradWho/BlockchainDataColla/orgDeploy/third_party/logger"
+	"github.com/FuradWho/BlockchainDataColla/orgDeploy/web/routers"
 )
 
 func main() {
-	fabric.Conn()
+	r := routers.SetRouter()
+	//启动端口为8085的项目
+	r.Run(":8081")
 }
