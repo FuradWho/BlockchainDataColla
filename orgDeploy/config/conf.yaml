@@ -1,0 +1,13 @@
+network:
+ ip: '192.168.175.129'
+ port: '8500'
+service:
+ fabricServerName: 'FuradWho.BlockchainDataColla.fabricDeploy'
+ caServerName: 'FuradWho.BlockchainDataColla.caServer'
+path:
+ PrivateKeyFilesPath: '/home/furad/GolandProjects/BlockchainDataColla/orgDeploy/msp/keystore/'
+ PublicKeyFilesPath: '/home/furad/GolandProjects/BlockchainDataColla/orgDeploy/msp/keystore/'
+ SignCertFilesPath: '/home/furad/GolandProjects/BlockchainDataColla/orgDeploy/msp/signcerts/'
+ serverCert: '/home/furad/GolandProjects/BlockchainDataColla/caServer/msp/signcert/ca.pem'
+ clientKey: '/home/furad/GolandProjects/BlockchainDataColla/orgDeploy/msp/keystore/client_private_key.pem'
+ clientCert: '/home/furad/GolandProjects/BlockchainDataColla/orgDeploy/msp/signcerts/client-ca-cert.crt'

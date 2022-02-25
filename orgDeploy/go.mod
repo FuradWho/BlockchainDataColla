@@ -10,6 +10,7 @@ require (
 	github.com/prometheus/common v0.6.0
 	github.com/sirupsen/logrus v1.7.0
 	google.golang.org/protobuf v1.27.1
+	gopkg.in/yaml.v2 v2.4.0
 )
 
 require (

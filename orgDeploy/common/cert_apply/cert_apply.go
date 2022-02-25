@@ -7,15 +7,18 @@ import (
 	"crypto/x509/pkix"
 	"encoding/pem"
 	"errors"
+	"github.com/FuradWho/BlockchainDataColla/orgDeploy/pkg/setting"
 	"os"
 )
 
+/*
 const (
 	PrivateKeyFilesPath = "/home/furad/GolandProjects/BlockchainDataColla/orgDeploy/msp/keystore/"
 	PublicKeyFilesPath  = "/home/furad/GolandProjects/BlockchainDataColla/orgDeploy/msp/keystore/"
 	SignCertFilesPath   = "/home/furad/GolandProjects/BlockchainDataColla/orgDeploy/msp/signcerts/"
 )
 
+*/
 /*
 const (
 	PrivateKeyFilesPath = "E:\\projects\\BlockchainDataColla\\orgDeploy\\msp\\keystore\\"
@@ -43,7 +46,7 @@ func (c *Crt) CreatePairKey() error {
 		Type:  "RSA PRIVATE KEY",
 		Bytes: privateKeyStream,
 	}
-	file, err := os.Create(PrivateKeyFilesPath + "client_private_key.pem")
+	file, err := os.Create(setting.Conf.Path.PrivateKeyFilesPath + "client_private_key.pem")
 	defer file.Close()
 	if err != nil {
 		return err
@@ -64,7 +67,7 @@ func (c *Crt) CreatePairKey() error {
 		Bytes: publicKeyStream,
 	}
 
-	file, err = os.Create(PublicKeyFilesPath + "client_public_key.pem")
+	file, err = os.Create(setting.Conf.Path.PublicKeyFilesPath + "client_public_key.pem")
 	defer file.Close()
 	if err != nil {
 		return err
@@ -98,7 +101,7 @@ func (c *Crt) CreateCSR() ([]byte, error) {
 			OrganizationalUnit: []string{"node1"},
 			CommonName:         "colla.node1.com",
 		},
-		//	IPAddresses:    []net.IP{net.IPv4(127, 0, 0, 1)},
+		// IPAddresses:    []net.IP{net.IPv4(127, 0, 0, 1)},
 		// DNSNames:       []string{"colla.node.com"},
 		EmailAddresses: []string{"liu1337543811@gmail.com"},
 	}
@@ -115,7 +118,7 @@ func (c Crt) SaveCSR(crtBytes []byte) error {
 		return errors.New("please create the private key and public key first")
 	}
 
-	crsFilePath := SignCertFilesPath + "client-ca-cert.crt"
+	crsFilePath := setting.Conf.Path.SignCertFilesPath + "client-ca-cert.crt"
 	clientCRTFile, err := os.Create(crsFilePath)
 	defer clientCRTFile.Close()
 	if err != nil {

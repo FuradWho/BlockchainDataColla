@@ -3,6 +3,7 @@ package micro_services
 import (
 	"crypto/tls"
 	"crypto/x509"
+	"github.com/FuradWho/BlockchainDataColla/orgDeploy/pkg/setting"
 	"github.com/asim/go-micro/plugins/client/grpc/v3"
 	"github.com/asim/go-micro/plugins/registry/consul/v3"
 	"github.com/asim/go-micro/v3/client"
@@ -10,11 +11,14 @@ import (
 	"io/ioutil"
 )
 
+/*
 const (
 	serverCert = "/home/furad/GolandProjects/BlockchainDataColla/caServer/msp/signcert/ca.pem"
 	clientKey  = "/home/furad/GolandProjects/BlockchainDataColla/orgDeploy/msp/keystore/client_private_key.pem"
 	clientCert = "/home/furad/GolandProjects/BlockchainDataColla/orgDeploy/msp/signcerts/client-ca-cert.crt"
 )
+
+*/
 
 /*
 const (
@@ -25,7 +29,7 @@ const (
 
 */
 
-var consulReg = consul.NewRegistry(registry.Addrs("192.168.175.129:8500"))
+var consulReg = consul.NewRegistry(registry.Addrs(setting.Conf.Network.Ip + setting.Conf.Network.Port))
 
 type Foo struct {
 	Option Option
@@ -41,12 +45,12 @@ type ModOption func(option *Option)
 
 func NewFabricOption(modOption ModOption) (*Foo, error) {
 
-	x509KeyPair, err := tls.LoadX509KeyPair(clientCert, clientKey)
+	x509KeyPair, err := tls.LoadX509KeyPair(setting.Conf.Path.ClientCert, setting.Conf.Path.ClientKey)
 	if err != nil {
 		return nil, err
 	}
 	certPool := x509.NewCertPool()
-	certBytes, err := ioutil.ReadFile(serverCert)
+	certBytes, err := ioutil.ReadFile(setting.Conf.Path.ServerCert)
 	if err != nil {
 		return nil, err
 	}
