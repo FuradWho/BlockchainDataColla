@@ -1,24 +1,19 @@
 package main
 
 import (
-	"fmt"
 	_ "github.com/FuradWho/BlockchainDataColla/orgDeploy/pkg/setting"
 	_ "github.com/FuradWho/BlockchainDataColla/orgDeploy/third_party/logger"
-	"github.com/go-pg/pg/v10"
+	"github.com/FuradWho/BlockchainDataColla/orgDeploy/web/routers"
+	log "github.com/sirupsen/logrus"
 )
 
 func main() {
-	//r := routers.SetRouter()
-	////启动端口为8085的项目
-	//r.Run(":8081")
 
-	opt, err := pg.ParseURL("postgres://furad:furad@localhost:5432/db_micro")
+	r := routers.SetRouter()
+	//启动端口为8085的项目
+	err := r.Run(":8081")
 	if err != nil {
-		panic(err)
+		log.Errorln(err)
+		return
 	}
-
-	db := pg.Connect(opt)
-
-	fmt.Println(db.String())
-
 }

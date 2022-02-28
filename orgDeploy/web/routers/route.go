@@ -14,5 +14,6 @@ func SetRouter() *gin.Engine {
 		// Test api
 		userGroup.GET("", controllers.Test)
 	}
+
 	return r
 }

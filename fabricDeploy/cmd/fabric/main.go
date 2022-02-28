@@ -123,5 +123,5 @@ func Test() {
 }
 
 func main() {
-	Conn()
+	Test()
 }
