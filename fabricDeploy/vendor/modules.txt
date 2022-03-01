@@ -211,6 +211,9 @@ github.com/go-kit/kit/util/conn
 # github.com/go-logfmt/logfmt v0.4.0
 ## explicit
 github.com/go-logfmt/logfmt
+# github.com/gofrs/uuid v3.2.0+incompatible
+## explicit
+github.com/gofrs/uuid
 # github.com/golang/mock v1.4.3
 ## explicit; go 1.11
 github.com/golang/mock/gomock

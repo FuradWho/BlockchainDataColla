@@ -6,8 +6,11 @@ import (
 	cert "github.com/FuradWho/BlockchainDataColla/fabricDeploy/common/cert_apply"
 	"github.com/FuradWho/BlockchainDataColla/fabricDeploy/common/micro_services"
 	"github.com/FuradWho/BlockchainDataColla/fabricDeploy/common/msg_client"
+	msg_handler "github.com/FuradWho/BlockchainDataColla/fabricDeploy/handler"
+	"github.com/FuradWho/BlockchainDataColla/fabricDeploy/model"
 	proto "github.com/FuradWho/BlockchainDataColla/fabricDeploy/proto"
 	"github.com/FuradWho/BlockchainDataColla/fabricDeploy/proto/csr"
+	msg "github.com/FuradWho/BlockchainDataColla/fabricDeploy/proto/msg"
 	_ "github.com/FuradWho/BlockchainDataColla/fabricDeploy/third_party/logger"
 	handler "github.com/FuradWho/BlockchainDataColla/fabricDeploy/web/handler"
 	nats "github.com/asim/go-micro/plugins/broker/nats/v3"
@@ -114,14 +117,62 @@ func Conn() {
 	_ = service.Run()
 }
 
+var ServiceSetup model.ServiceSetup
+
 func Test() {
 	client := msg_client.FabricClient{}
 	err := client.Init()
 	if err != nil {
 		fmt.Println(err)
 	}
+
+	ServiceSetup = model.ServiceSetup{
+		ChaincodeID: "msg_cc",
+		Client:      client.ChannelClient,
+	}
 }
 
 func main() {
-	Test()
+	SaveMsg()
+}
+
+func SaveMsg() {
+
+	natsBroker := nats.NewBroker()
+	natsBroker.Init(broker.Addrs("nats://192.168.175.129:4222"))
+	natsBroker.Connect()
+
+	err := natsBroker.Publish("Msg", &broker.Message{
+		Header: map[string]string{"type": "Msg"},
+		Body:   []byte("Msg broker nats"),
+	})
+	if err != nil {
+		log.Errorf("%s \n", err)
+	}
+
+	fabricOption, err := micro_services.NewFabricOption(func(option *micro_services.Option) {
+		option.Broker = natsBroker
+		option.ServerName = ServerName
+	})
+	if err != nil {
+		log.Errorln(err)
+	}
+
+	// grpcserver.Start()
+	service := micro.NewService(
+		micro.Server(fabricOption.Option.Server),
+		micro.Name(fabricOption.Option.ServerName),
+		micro.Registry(fabricOption.Option.Registry),
+		micro.Version(fabricOption.Option.Version),
+		micro.Broker(fabricOption.Option.Broker))
+
+	service.Init()
+
+	err = msg.RegisterMsgServiceHandler(fabricOption.Option.Server, new(msg_handler.MsgService))
+
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	_ = service.Run()
 }

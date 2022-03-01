@@ -7,14 +7,14 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-func (t *ServiceSetup) SaveMsg(edu MsgBody) (string, error) {
+func (t *ServiceSetup) SaveMsg(msg MsgBody) (string, error) {
 
 	eventID := "eventAddMsg"
 	reg, notifier := registerEvent(t.Client, t.ChaincodeID, eventID)
 	defer t.Client.UnregisterChaincodeEvent(reg)
 
 	// 将edu对象序列化成为字节数组
-	b, err := json.Marshal(edu)
+	b, err := json.Marshal(msg)
 	if err != nil {
 		log.Errorf("指定的edu对象序列化时发生错误: %s \n", err)
 		return "", errors.New("指定的edu对象序列化时发生错误")
@@ -57,7 +57,7 @@ func (t *ServiceSetup) FindMsgInfoByMsgId(MsgId string) ([]byte, error) {
 	return response.Payload, nil
 }
 
-func (t *ServiceSetup) ModifyEdu(edu MsgBody) (string, error) {
+func (t *ServiceSetup) ModifyMsg(edu MsgBody) (string, error) {
 
 	eventID := "eventModifyMsg"
 	reg, notifier := registerEvent(t.Client, t.ChaincodeID, eventID)

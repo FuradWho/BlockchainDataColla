@@ -7,6 +7,7 @@ require (
 	github.com/asim/go-micro/plugins/registry/consul/v3 v3.7.0
 	github.com/asim/go-micro/plugins/server/grpc/v3 v3.7.0
 	github.com/asim/go-micro/v3 v3.7.0
+	github.com/gofrs/uuid v3.2.0+incompatible
 	github.com/hyperledger/fabric-protos-go v0.0.0-20220202165055-956c75de7b17
 	github.com/hyperledger/fabric-sdk-go v1.0.0
 	github.com/lestrrat-go/file-rotatelogs v2.4.0+incompatible

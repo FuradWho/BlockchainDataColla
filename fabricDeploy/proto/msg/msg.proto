@@ -1,0 +1,38 @@
+// 指定的当前proto语法的版本，有2和3
+syntax = "proto3";
+option go_package = "/";
+// 指定等会文件生成出来的package
+package proto;
+
+// 定义request model
+
+/*
+ObjectType string        `json:"docType"`   // 消息类型
+	MsgId      string        `json:"msg_id"`    // 信息 id
+	Sender     string        `json:"sender"`    // 发送者
+	Recipient  string        `json:"recipient"` // 接受者
+	Body       string        `json:"body"`      // 消息体
+	DataHash   string        `json:"hash"`      // 整体数据 hash
+	TimeDate   string        `json:"time_date"` // 日期
+ */
+message SaveMsgRequest{
+  string objectType = 1;
+  string sender = 2;
+  string recipient = 3;
+  string body = 4;
+  string dataHash = 5;
+  string timeDate = 6;
+}
+
+message SaveMsgResponse{
+  string code = 1;
+  string msg = 2;
+  string txId = 3;
+}
+
+// 定义服务主体
+service CrsService{
+  // 定义方法
+  rpc SaveMsgRpc (SaveMsgRequest) returns (SaveMsgResponse){}
+ // rpc GetCaCrt (CaRequest) returns (CaResponse){}
+}
