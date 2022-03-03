@@ -6,6 +6,7 @@ import (
 	"github.com/FuradWho/BlockchainDataColla/orgDeploy/common/micro_services"
 	"github.com/FuradWho/BlockchainDataColla/orgDeploy/pkg/setting"
 	fabric "github.com/FuradWho/BlockchainDataColla/orgDeploy/proto/fabric"
+	msg "github.com/FuradWho/BlockchainDataColla/orgDeploy/proto/msg"
 	_ "github.com/FuradWho/BlockchainDataColla/orgDeploy/third_party/logger"
 	"github.com/asim/go-micro/v3"
 	"github.com/prometheus/common/log"
@@ -65,5 +66,29 @@ func Conn() {
 	//	fmt.Println("???")
 	//	fmt.Println(subscribe.Topic())
 	//}
+
+}
+
+func Msg() {
+
+	fabricOption, err := micro_services.NewFabricOption(func(option *micro_services.Option) {
+		option.ServerName = setting.Conf.Service.FabricServerName
+	})
+	if err != nil {
+		log.Errorln(err)
+	}
+
+	microservice := micro.NewService(
+		micro.Client(fabricOption.Option.Client),
+		micro.Name(fabricOption.Option.ServerName),
+		micro.Registry(fabricOption.Option.Registry))
+	microservice.Init()
+
+	msgClient := msg.NewMsgService(fabricOption.Option.ServerName, microservice.Client())
+	response, err := msgClient.SaveMsgRpc(context.Background(), &msg.SaveMsgRequest{})
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(response.GetMsg())
 
 }

@@ -29,7 +29,7 @@ const (
 
 */
 
-var consulReg = consul.NewRegistry(registry.Addrs(setting.Conf.Network.Ip + setting.Conf.Network.Port))
+var consulReg = consul.NewRegistry(registry.Addrs(setting.Conf.Network.Ip))
 
 type Foo struct {
 	Option Option
