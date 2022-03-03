@@ -3,6 +3,7 @@ module github.com/FuradWho/BlockchainDataColla/orgDeploy
 go 1.17
 
 require (
+	github.com/asim/go-micro/plugins/broker/nats/v3 v3.7.0
 	github.com/asim/go-micro/plugins/client/grpc/v3 v3.7.0
 	github.com/asim/go-micro/plugins/registry/consul/v3 v3.7.0
 	github.com/asim/go-micro/v3 v3.7.0
@@ -60,6 +61,9 @@ require (
 	github.com/mitchellh/mapstructure v1.3.3 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.1 // indirect
+	github.com/nats-io/nats.go v1.11.1-0.20210623165838-4b75fc59ae30 // indirect
+	github.com/nats-io/nkeys v0.3.0 // indirect
+	github.com/nats-io/nuid v1.0.1 // indirect
 	github.com/nxadm/tail v1.4.8 // indirect
 	github.com/oxtoacart/bpool v0.0.0-20190530202638-03653db5a59c // indirect
 	github.com/pascaldekloe/goe v0.1.0 // indirect

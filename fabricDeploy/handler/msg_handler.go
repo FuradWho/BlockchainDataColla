@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/FuradWho/BlockchainDataColla/fabricDeploy/common/msg_client"
+	"github.com/FuradWho/BlockchainDataColla/fabricDeploy/common/nats_service"
 	"github.com/FuradWho/BlockchainDataColla/fabricDeploy/model"
 	pb "github.com/FuradWho/BlockchainDataColla/fabricDeploy/proto/msg"
 	"github.com/gofrs/uuid"
@@ -51,9 +52,13 @@ func (m *MsgService) SaveMsgRpc(ctx context.Context, in *pb.SaveMsgRequest, out 
 		return err
 	}
 
+	fmt.Println(transactionID)
+
 	out.TxId = transactionID
 	out.Msg = msg.MsgId
 	out.Code = "200"
+
+	nats_service.SaveMsg(out.Msg)
 
 	return nil
 }

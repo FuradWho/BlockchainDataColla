@@ -1,9 +1,10 @@
-package micro_services
+package micro_service
 
 import (
 	"crypto/tls"
 	"crypto/x509"
 	"fmt"
+	"github.com/asim/go-micro/plugins/broker/nats/v3"
 	"github.com/asim/go-micro/plugins/registry/consul/v3"
 	grpc "github.com/asim/go-micro/plugins/server/grpc/v3"
 	"github.com/asim/go-micro/v3/broker"
@@ -38,8 +39,9 @@ type Option struct {
 
 type ModOption func(option *Option)
 
-func NewFabricOption(modOption ModOption) (*Foo, error) {
+func NewMicroOption(modOption ModOption) (Foo, error) {
 
+	// grpc
 	grpcServer := grpc.NewServer()
 
 	x509KeyPair, err := tls.LoadX509KeyPair(serverCert, serverKey)
@@ -49,7 +51,7 @@ func NewFabricOption(modOption ModOption) (*Foo, error) {
 	certPool := x509.NewCertPool()
 	certBytes, err := ioutil.ReadFile(clientCert)
 	if err != nil {
-		return nil, err
+		return Foo{}, err
 	}
 
 	certPool.AppendCertsFromPEM(certBytes)
@@ -60,16 +62,28 @@ func NewFabricOption(modOption ModOption) (*Foo, error) {
 		InsecureSkipVerify: false,
 	}))
 
+	// nats
+	natsBroker := nats.NewBroker()
+	err = natsBroker.Init(broker.Addrs("nats://192.168.175.129:4222"))
+	if err != nil {
+		return Foo{}, err
+	}
+	err = natsBroker.Connect()
+	if err != nil {
+		return Foo{}, err
+	}
+
 	option := Option{
 		Server:     grpcServer,
 		Registry:   consulReg,
+		Broker:     natsBroker,
 		ServerName: "default",
-		Version:    "1.0",
+		Version:    "latest",
 	}
 
 	modOption(&option)
 
-	return &Foo{
+	return Foo{
 		Option: option,
 	}, nil
 }

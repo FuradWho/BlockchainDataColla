@@ -4,30 +4,14 @@ import (
 	"crypto/tls"
 	"crypto/x509"
 	"github.com/FuradWho/BlockchainDataColla/orgDeploy/pkg/setting"
+	"github.com/asim/go-micro/plugins/broker/nats/v3"
 	"github.com/asim/go-micro/plugins/client/grpc/v3"
 	"github.com/asim/go-micro/plugins/registry/consul/v3"
+	"github.com/asim/go-micro/v3/broker"
 	"github.com/asim/go-micro/v3/client"
 	"github.com/asim/go-micro/v3/registry"
 	"io/ioutil"
 )
-
-/*
-const (
-	serverCert = "/home/furad/GolandProjects/BlockchainDataColla/caServer/msp/signcert/ca.pem"
-	clientKey  = "/home/furad/GolandProjects/BlockchainDataColla/orgDeploy/msp/keystore/client_private_key.pem"
-	clientCert = "/home/furad/GolandProjects/BlockchainDataColla/orgDeploy/msp/signcerts/client-ca-cert.crt"
-)
-
-*/
-
-/*
-const (
-	serverCert = "E:\\projects\\BlockchainDataColla\\orgDeploy\\msp\\ca\\ca.pem"
-	clientKey  = "E:\\projects\\BlockchainDataColla\\orgDeploy\\msp\\keystore\\client_private_key.pem"
-	clientCert = "E:\\projects\\BlockchainDataColla\\orgDeploy\\msp\\signcerts\\client-ca-cert.crt"
-)
-
-*/
 
 var consulReg = consul.NewRegistry(registry.Addrs(setting.Conf.Network.Ip))
 
@@ -38,21 +22,23 @@ type Foo struct {
 type Option struct {
 	Registry   registry.Registry
 	Client     client.Client
+	Broker     broker.Broker
 	ServerName string
+	Version    string
 }
 
 type ModOption func(option *Option)
 
-func NewFabricOption(modOption ModOption) (*Foo, error) {
+func NewMicroOption(modOption ModOption) (Foo, error) {
 
 	x509KeyPair, err := tls.LoadX509KeyPair(setting.Conf.Path.ClientCert, setting.Conf.Path.ClientKey)
 	if err != nil {
-		return nil, err
+		return Foo{}, err
 	}
 	certPool := x509.NewCertPool()
 	certBytes, err := ioutil.ReadFile(setting.Conf.Path.ServerCert)
 	if err != nil {
-		return nil, err
+		return Foo{}, err
 	}
 
 	certPool.AppendCertsFromPEM(certBytes)
@@ -66,18 +52,31 @@ func NewFabricOption(modOption ModOption) (*Foo, error) {
 	grpcServer := grpc.NewClient()
 	err = grpcServer.Init(grpc.AuthTLS(tlsConfig))
 	if err != nil {
-		return nil, err
+		return Foo{}, err
+	}
+
+	// nats
+	natsBroker := nats.NewBroker()
+	err = natsBroker.Init(broker.Addrs("nats://192.168.175.129:4222"))
+	if err != nil {
+		return Foo{}, err
+	}
+	err = natsBroker.Connect()
+	if err != nil {
+		return Foo{}, err
 	}
 
 	option := Option{
 		Client:     grpcServer,
 		Registry:   consulReg,
+		Broker:     natsBroker,
 		ServerName: "default",
+		Version:    "latest",
 	}
 
 	modOption(&option)
 
-	return &Foo{
+	return Foo{
 		Option: option,
 	}, nil
 }

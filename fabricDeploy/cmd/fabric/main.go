@@ -1,21 +1,11 @@
 package main
 
 import (
-	"context"
 	"fmt"
-	cert "github.com/FuradWho/BlockchainDataColla/fabricDeploy/common/cert_apply"
-	"github.com/FuradWho/BlockchainDataColla/fabricDeploy/common/micro_services"
-	"github.com/FuradWho/BlockchainDataColla/fabricDeploy/common/msg_client"
-	msg_handler "github.com/FuradWho/BlockchainDataColla/fabricDeploy/handler"
-	"github.com/FuradWho/BlockchainDataColla/fabricDeploy/model"
-	proto "github.com/FuradWho/BlockchainDataColla/fabricDeploy/proto"
-	"github.com/FuradWho/BlockchainDataColla/fabricDeploy/proto/csr"
-	msg "github.com/FuradWho/BlockchainDataColla/fabricDeploy/proto/msg"
+	"github.com/FuradWho/BlockchainDataColla/fabricDeploy/common/micro_service"
+	"github.com/FuradWho/BlockchainDataColla/fabricDeploy/handler"
+	"github.com/FuradWho/BlockchainDataColla/fabricDeploy/proto/msg"
 	_ "github.com/FuradWho/BlockchainDataColla/fabricDeploy/third_party/logger"
-	handler "github.com/FuradWho/BlockchainDataColla/fabricDeploy/web/handler"
-	nats "github.com/asim/go-micro/plugins/broker/nats/v3"
-	"github.com/asim/go-micro/v3"
-	"github.com/asim/go-micro/v3/broker"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -24,18 +14,19 @@ const (
 	caServerName = "FuradWho.BlockchainDataColla.caServer"
 )
 
+/*
 func CRT() {
 
-	caOption, err := micro_services.NewCaOption(func(option *micro_services.Option) {
+	caOption, err := micro_service.NewCaOption(func(option *micro_service.Option) {
 		option.ServerName = caServerName
 	})
 	if err != nil {
 		log.Errorln(err)
 	}
 
-	microservice := micro.NewService(
-		micro.Name(caOption.Option.ServerName),
-		micro.Registry(caOption.Option.Registry),
+	microservice := micro_service.NewService(
+		micro_service.Name(caOption.Option.ServerName),
+		micro_service.Registry(caOption.Option.Registry),
 	)
 	microservice.Init()
 
@@ -82,15 +73,7 @@ func Conn() {
 	natsBroker.Init(broker.Addrs("nats://192.168.175.129:4222"))
 	natsBroker.Connect()
 
-	err := natsBroker.Publish("test", &broker.Message{
-		Header: map[string]string{"type": "test"},
-		Body:   []byte("test broker nats"),
-	})
-	if err != nil {
-		log.Errorf("%s \n", err)
-	}
-
-	fabricOption, err := micro_services.NewFabricOption(func(option *micro_services.Option) {
+	fabricOption, err := micro_service.NewFabricOption(func(option *micro_service.Option) {
 		option.Broker = natsBroker
 		option.ServerName = ServerName
 	})
@@ -99,12 +82,12 @@ func Conn() {
 	}
 
 	// grpcserver.Start()
-	service := micro.NewService(
-		micro.Server(fabricOption.Option.Server),
-		micro.Name(fabricOption.Option.ServerName),
-		micro.Registry(fabricOption.Option.Registry),
-		micro.Version(fabricOption.Option.Version),
-		micro.Broker(fabricOption.Option.Broker))
+	service := micro_service.NewService(
+		micro_service.Server(fabricOption.Option.Server),
+		micro_service.Name(fabricOption.Option.ServerName),
+		micro_service.Registry(fabricOption.Option.Registry),
+		micro_service.Version(fabricOption.Option.Version),
+		micro_service.Broker(fabricOption.Option.Broker))
 
 	service.Init()
 
@@ -132,47 +115,20 @@ func Test() {
 	}
 }
 
+*/
+
 func main() {
-	SaveMsg()
-}
 
-func SaveMsg() {
+	option := micro_service.MicroOption.Option
 
-	natsBroker := nats.NewBroker()
-	natsBroker.Init(broker.Addrs("nats://192.168.175.129:4222"))
-	natsBroker.Connect()
-
-	err := natsBroker.Publish("Msg", &broker.Message{
-		Header: map[string]string{"type": "Msg"},
-		Body:   []byte("Msg broker nats"),
-	})
-	if err != nil {
-		log.Errorf("%s \n", err)
-	}
-
-	fabricOption, err := micro_services.NewFabricOption(func(option *micro_services.Option) {
-		option.Broker = natsBroker
-		option.ServerName = ServerName
-	})
+	fmt.Println(option)
+	err := msg.RegisterMsgServiceHandler(option.Server, new(handler.MsgService))
 	if err != nil {
 		log.Errorln(err)
 	}
 
-	// grpcserver.Start()
-	service := micro.NewService(
-		micro.Server(fabricOption.Option.Server),
-		micro.Name(fabricOption.Option.ServerName),
-		micro.Registry(fabricOption.Option.Registry),
-		micro.Version(fabricOption.Option.Version),
-		micro.Broker(fabricOption.Option.Broker))
-
-	service.Init()
-
-	err = msg.RegisterMsgServiceHandler(fabricOption.Option.Server, new(msg_handler.MsgService))
-
+	err = micro_service.Service.Run()
 	if err != nil {
-		fmt.Println(err)
+		panic(err)
 	}
-
-	_ = service.Run()
 }

@@ -3,7 +3,6 @@ package cert_service
 import (
 	"context"
 	cert "github.com/FuradWho/BlockchainDataColla/orgDeploy/common/cert_apply"
-	"github.com/FuradWho/BlockchainDataColla/orgDeploy/common/micro_services"
 	"github.com/FuradWho/BlockchainDataColla/orgDeploy/pkg/setting"
 	"github.com/FuradWho/BlockchainDataColla/orgDeploy/proto/crs"
 	_ "github.com/FuradWho/BlockchainDataColla/orgDeploy/third_party/logger"

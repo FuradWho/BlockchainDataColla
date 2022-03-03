@@ -20,7 +20,7 @@ func main() {
 		c.String(http.StatusOK, "user api")
 	})
 
-	// 3.初始化go micro
+	// 3.初始化go micro_service
 	server := web.NewService(
 		web.Name("productService"), // 当前微服务服务名
 		web.Registry(cr),           // 注册到consul

@@ -1,6 +1,7 @@
 package main
 
 import (
+	_ "github.com/FuradWho/BlockchainDataColla/orgDeploy/common/micro_services"
 	_ "github.com/FuradWho/BlockchainDataColla/orgDeploy/pkg/setting"
 	_ "github.com/FuradWho/BlockchainDataColla/orgDeploy/third_party/logger"
 	"github.com/FuradWho/BlockchainDataColla/orgDeploy/web/routers"
