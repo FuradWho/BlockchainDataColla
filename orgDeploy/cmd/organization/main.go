@@ -11,7 +11,7 @@ import (
 func main() {
 
 	r := routers.SetRouter()
-	//启动端口为8085的项目
+	//启动端口为8081的项目
 	err := r.Run(":8081")
 	if err != nil {
 		log.Errorln(err)

@@ -11,23 +11,6 @@ import (
 	"os"
 )
 
-/*
-const (
-	PrivateKeyFilesPath = "/home/furad/GolandProjects/BlockchainDataColla/orgDeploy/msp/keystore/"
-	PublicKeyFilesPath  = "/home/furad/GolandProjects/BlockchainDataColla/orgDeploy/msp/keystore/"
-	SignCertFilesPath   = "/home/furad/GolandProjects/BlockchainDataColla/orgDeploy/msp/signcerts/"
-)
-
-*/
-/*
-const (
-	PrivateKeyFilesPath = "E:\\projects\\BlockchainDataColla\\orgDeploy\\msp\\keystore\\"
-	PublicKeyFilesPath  = "E:\\projects\\BlockchainDataColla\\orgDeploy\\msp\\keystore\\"
-	SignCertFilesPath   = "E:\\projects\\BlockchainDataColla\\orgDeploy\\msp\\signcerts\\"
-)
-
-*/
-
 type Crt struct {
 	privateKey     *rsa.PrivateKey
 	privateKeyFile string
