@@ -1,12 +1,12 @@
-package main
+package db
 
 import (
 	"fmt"
 	"github.com/go-pg/pg/v10"
-	"github.com/go-pg/pg/v10/orm"
+	"github.com/google/uuid"
 )
 
-var db *pg.DB
+var Db *pg.DB
 
 func init() {
 	opt, err := pg.ParseURL("postgres://furad:furad@localhost:5432/db_micro?sslmode=disable")
@@ -15,44 +15,23 @@ func init() {
 	}
 
 	//db
-	db = pg.Connect(opt)
+	Db = pg.Connect(opt)
 }
 
-type User struct {
-	id   int
-	name string
-}
-
-//通过定义的结构体来创建数据库表
-func createSchema(db *pg.DB) error {
-	models := []interface{}{
-		(*User)(nil),
-	}
-
-	for _, model := range models {
-		err := db.Model(model).CreateTable(&orm.CreateTableOptions{
-			//Temp: true,//建表是临时的，测试用途
-			IfNotExists: true,
-		})
-		if err != nil {
-			return err
-		}
-	}
-	return nil
+type CompanyInfo struct {
+	tableName      struct{} `pg:"schema_colla.t_companyInfo,alias:t_companyInfo"`
+	Id             string   `pg:"id,pk"`
+	Ip             string   `pg:"ip"`
+	InvitationCode string   `pg:"invitation_code"`
 }
 
 func main() {
-	err := createSchema(db)
-	if err != nil {
-		fmt.Println(err)
+	com := &CompanyInfo{
+		Id: uuid.NewString(),
+		Ip: "1212121",
 	}
 
-	user1 := &User{
-		id:   10,
-		name: "zhansan",
-	}
-
-	insert, err := db.Model(user1).Insert()
+	insert, err := Db.Model(com).Insert()
 	if err != nil {
 		fmt.Println(err)
 	}

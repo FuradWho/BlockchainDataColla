@@ -17,7 +17,7 @@ func main() {
 	// 2.使用gin作为router
 	router := gin.Default()
 	router.GET("/user", func(c *gin.Context) {
-		c.String(http.StatusOK, "user api")
+		c.String(http.StatusOK, "user apiserver")
 	})
 
 	// 3.初始化go micro_service

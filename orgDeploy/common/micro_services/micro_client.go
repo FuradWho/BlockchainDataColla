@@ -37,7 +37,6 @@ func init() {
 
 	Service.Init()
 
-	//go func() {
 	_, err := option.Broker.Subscribe("Msg", func(event broker.Event) error {
 		fmt.Println(event.Message().Header)
 		return nil
@@ -45,7 +44,6 @@ func init() {
 	if err != nil {
 		fmt.Println(err)
 	}
-	//}()
 }
 
 /*

@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-//Test api for test
+//Test apiserver for test
 func Test(c *gin.Context) {
 
 	fabric_service.Msg()
@@ -15,9 +15,11 @@ func Test(c *gin.Context) {
 
 }
 
+func Login(c *gin.Context) {
+
+}
+
 // ConnNet Connect to main net
 func ConnNet(c *gin.Context) {
 
 }
-
-

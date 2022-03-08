@@ -9,10 +9,15 @@ func SetRouter() *gin.Engine {
 	r := gin.Default()
 
 	// Api Group
-	userGroup := r.Group("/test")
+	testGroup := r.Group("/test")
 	{
-		// Test api
-		userGroup.GET("", controllers.Test)
+		// Test apiserver
+		testGroup.GET("", controllers.Test)
+	}
+
+	userGroup := r.Group("/user")
+	{
+		userGroup.POST("login", controllers.Login)
 	}
 
 	return r
